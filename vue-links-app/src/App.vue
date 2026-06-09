@@ -1,84 +1,63 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
 import { RouterView, RouterLink } from 'vue-router'
+import { useTheme } from 'vuetify'
 
-const isDarkMode = ref(true)
+const theme = useTheme()
 
-onMounted(() => {
-  // Check if there's a saved preference
-  const saved = localStorage.getItem('darkMode')
-  if (saved !== null) {
-    isDarkMode.value = saved === 'true'
-  }
-  updateDarkMode()
-})
-
-const toggleDarkMode = () => {
-  isDarkMode.value = !isDarkMode.value
-  localStorage.setItem('darkMode', String(isDarkMode.value))
-  updateDarkMode()
-}
-
-const updateDarkMode = () => {
-  if (isDarkMode.value) {
-    document.documentElement.classList.remove('light-mode')
-  } else {
-    document.documentElement.classList.add('light-mode')
-  }
+const toggleTheme = () => {
+  const newTheme = theme.global.name.value === 'dark' ? 'light' : 'dark'
+  theme.global.name.value = newTheme
+  localStorage.setItem('appTheme', newTheme)
 }
 </script>
 
 <template>
-  <div class="app-container">
-    <nav class="top-nav">
-      <RouterLink to="/" class="nav-link">Home</RouterLink>
+  <v-app>
+    <v-app-bar elevation="1" class="px-4">
+      <template v-slot:prepend>
+        <RouterLink to="/" class="nav-link">Home</RouterLink>
+      </template>
+
+      <v-spacer />
+
       <RouterLink to="/about" class="nav-link">About</RouterLink>
-    </nav>
-    <button class="theme-toggle" @click="toggleDarkMode" :aria-label="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
-      <span v-if="isDarkMode">☀️</span>
-      <span v-else>🌙</span>
-    </button>
-    <RouterView />
-  </div>
+
+      <template v-slot:append>
+        <v-btn
+          icon
+          @click="toggleTheme"
+          :aria-label="theme.global.name.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+        >
+          <v-icon>{{ theme.global.name.value === 'dark' ? 'mdi-white-balance-sunny' : 'mdi-moon-waning-crescent' }}</v-icon>
+        </v-btn>
+      </template>
+    </v-app-bar>
+
+    <v-main>
+      <RouterView />
+    </v-main>
+  </v-app>
 </template>
 
 <style scoped>
-.app-container {
-  position: relative;
-}
-
-.top-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  padding: 1.5rem 2rem;
-  background: var(--color-background);
-  border-bottom: 1px solid var(--color-border);
-  z-index: 999;
-}
-
 .nav-link {
   text-decoration: none;
-  color: var(--color-heading);
+  color: inherit;
   font-weight: 600;
-  font-size: 1rem;
+  padding: 0.5rem 0;
+  margin: 0 1rem;
   transition: all 0.3s ease;
   position: relative;
-  padding-bottom: 0.25rem;
 }
 
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -2px;
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--color-heading);
+  background: currentColor;
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.3s ease;
@@ -89,58 +68,8 @@ const updateDarkMode = () => {
   transform-origin: left;
 }
 
-.nav-link.router-link-active {
-  color: var(--color-heading);
-}
-
 .nav-link.router-link-active::after {
   transform: scaleX(1);
   transform-origin: left;
-}
-
-.theme-toggle {
-  position: fixed;
-  top: 1.5rem;
-  right: 2rem;
-  background: var(--color-background-soft);
-  border: 1px solid var(--color-border);
-  border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  z-index: 1000;
-}
-
-.theme-toggle:hover {
-  background: var(--color-background-mute);
-  border-color: var(--color-border-hover);
-}
-
-.theme-toggle:active {
-  transform: scale(0.95);
-}
-
-@media (max-width: 640px) {
-  .top-nav {
-    gap: 1.5rem;
-    padding: 1rem 1rem;
-  }
-
-  .nav-link {
-    font-size: 0.95rem;
-  }
-
-  .theme-toggle {
-    top: 1rem;
-    right: 1rem;
-    width: 44px;
-    height: 44px;
-    font-size: 1.25rem;
-  }
 }
 </style>
