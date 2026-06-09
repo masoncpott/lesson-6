@@ -9,3 +9,9 @@
     - Smooth hover animations on the buttons.
     - Use a modern, clean, simple font from Google Fonts.
     - Clean up any starter files or components that I don't need.
+
+## Next steps
+- Add an "about" page with a new route called "about"
+- Add a navigation menu at the top and have two links in the menu, "Home" and "About"
+- Read the artist bio from both the VSG Contemporary website and the This is Colossal article as the source material to generate a new, short paragraph about me and my artwork.
+- Create a this new page and keep it stylistically similar to the rest of the application.
