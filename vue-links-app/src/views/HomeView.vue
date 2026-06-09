@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import LinksButton from '@/components/LinksButton.vue'
 
 interface Link {
   label: string
@@ -61,22 +62,18 @@ const links: Link[] = [
             <!-- Links -->
             <v-row justify="center">
               <v-col cols="12">
-                <v-btn
+                <div
                   v-for="(link, index) in links"
                   :key="link.label"
-                  :href="link.url"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="outlined"
-                  size="x-large"
-                  block
-                  min-height="56"
-                  class="mb-3 text-none"
                   :class="{ 'mb-0': index === links.length - 1 }"
+                  class="mb-3"
                 >
-                  <v-icon start :icon="link.icon" size="24"></v-icon>
-                  <span class="text-base">{{ link.label }}</span>
-                </v-btn>
+                  <LinksButton
+                    :label="link.label"
+                    :url="link.url"
+                    :icon="link.icon"
+                  />
+                </div>
               </v-col>
             </v-row>
           </v-card>
