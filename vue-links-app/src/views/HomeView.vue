@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
+
 interface Link {
   label: string
   url: string
@@ -35,13 +37,21 @@ const links: Link[] = [
       <v-row justify="center">
         <v-col cols="12">
           <v-card class="pa-8" elevation="0">
+            <!-- Navigation Menu -->
+            <v-row justify="center" class="mb-8">
+              <v-col cols="12" class="d-flex justify-center gap-6">
+                <RouterLink to="/" class="nav-link active">Home</RouterLink>
+                <RouterLink to="/about" class="nav-link">About</RouterLink>
+              </v-col>
+            </v-row>
+
             <!-- Profile Photo -->
-            <v-row justify="center" class="mb-6">
+            <v-row justify="center" class="mb-8">
               <v-avatar size="120" color="surface-variant"></v-avatar>
             </v-row>
 
             <!-- Name and Tagline -->
-            <v-row justify="center" class="mb-6">
+            <v-row justify="center" class="mb-8">
               <v-col cols="12" class="text-center">
                 <h1 class="text-h4 font-weight-bold mb-2">Mason Pott</h1>
                 <p class="text-subtitle-1">Artist & Creative</p>
@@ -58,13 +68,14 @@ const links: Link[] = [
                   target="_blank"
                   rel="noopener noreferrer"
                   variant="outlined"
-                  size="lg"
+                  size="x-large"
                   block
+                  min-height="56"
                   class="mb-3 text-none"
                   :class="{ 'mb-0': index === links.length - 1 }"
                 >
-                  <v-icon start :icon="link.icon"></v-icon>
-                  {{ link.label }}
+                  <v-icon start :icon="link.icon" size="24"></v-icon>
+                  <span class="text-base">{{ link.label }}</span>
                 </v-btn>
               </v-col>
             </v-row>
@@ -80,6 +91,39 @@ const links: Link[] = [
   animation: fadeIn 0.6s ease-in;
 }
 
+.nav-link {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav-link.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -89,13 +133,5 @@ const links: Link[] = [
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-:deep(.v-btn) {
-  transition: all 0.3s ease;
-}
-
-:deep(.v-btn:hover) {
-  transform: translateY(-2px);
 }
 </style>
