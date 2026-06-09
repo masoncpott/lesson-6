@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import NavMenu from '@/components/NavMenu.vue'
 </script>
 
 <template>
@@ -9,12 +9,7 @@ import { RouterLink } from 'vue-router'
         <v-col cols="12">
           <v-card class="pa-8" elevation="0">
             <!-- Navigation Menu -->
-            <v-row justify="center" class="mb-8">
-              <v-col cols="12" class="d-flex justify-center gap-6">
-                <RouterLink to="/" class="nav-link">Home</RouterLink>
-                <RouterLink to="/about" class="nav-link active">About</RouterLink>
-              </v-col>
-            </v-row>
+            <NavMenu />
 
             <!-- Title -->
             <v-row justify="center" class="mb-6">
@@ -47,52 +42,3 @@ import { RouterLink } from 'vue-router'
   </v-main>
 </template>
 
-<style scoped>
-:deep(.v-card) {
-  animation: fadeIn 0.6s ease-in;
-}
-
-.nav-link {
-  text-decoration: none;
-  color: inherit;
-  font-weight: 600;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.3s ease;
-}
-
-.nav-link:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-.nav-link.active::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-</style>
