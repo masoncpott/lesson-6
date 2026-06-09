@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import LinksButton from '@/components/LinksButton.vue'
 import NavMenu from '@/components/NavMenu.vue'
+import IconButton from '@/components/IconButton.vue'
 
 interface Link {
   label: string
@@ -70,6 +71,11 @@ const links: Link[] = [
                   />
                 </div>
               </v-col>
+            </v-row>
+
+            <!-- Social Icon -->
+            <v-row justify="center" class="mt-6">
+              <IconButton icon="mdi-instagram" url="https://www.instagram.com/masonpott.artist/" />
             </v-row>
           </v-card>
         </v-col>

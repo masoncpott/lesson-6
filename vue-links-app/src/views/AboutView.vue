@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import NavMenu from '@/components/NavMenu.vue'
+import IconButton from '@/components/IconButton.vue'
 </script>
 
 <template>
@@ -34,6 +35,11 @@ import NavMenu from '@/components/NavMenu.vue'
                   <strong>Education:</strong> BFA from the University of Illinois at Urbana-Champaign (2015)
                 </p>
               </v-col>
+            </v-row>
+
+            <!-- Social Icon -->
+            <v-row justify="center" class="mt-6">
+              <IconButton icon="mdi-instagram" url="https://www.instagram.com/masonpott.artist/" />
             </v-row>
           </v-card>
         </v-col>
