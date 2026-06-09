@@ -3,8 +3,8 @@ import NavMenu from '@/components/NavMenu.vue'
 </script>
 
 <template>
-  <v-main class="d-flex align-center justify-center py-8">
-    <v-container maxWidth="480">
+  <v-main class="d-flex align-center justify-center">
+    <v-container maxWidth="480" class="py-8">
       <v-row justify="center">
         <v-col cols="12">
           <v-card class="pa-8" elevation="0">
